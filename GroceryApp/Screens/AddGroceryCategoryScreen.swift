@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import GroceryAppSharedDTO
 
 struct AddGroceryCategoryScreen: View {
+    
+    @EnvironmentObject private var model: GroceryModel
     
     @State private var title: String = ""
     @State private var colorCode: String = "#2ecc71"
@@ -15,6 +18,14 @@ struct AddGroceryCategoryScreen: View {
     @Environment(\.dismiss) private var dismiss
     
     private func saveGroceryCategory() async {
+        
+        let groceryCategoryRequestDTO = GroceryCategoryRequestDTO(title: title, colorCode: colorCode)
+        
+        do {
+            try await model.saveGroceryCategory(groceryCategoryRequestDTO)
+        } catch {
+            print(error.localizedDescription)
+        }
         
     }
     
@@ -50,5 +61,6 @@ struct AddGroceryCategoryScreen: View {
 #Preview {
     NavigationStack {
         AddGroceryCategoryScreen()
+            .environmentObject(GroceryModel())
     }
 }
