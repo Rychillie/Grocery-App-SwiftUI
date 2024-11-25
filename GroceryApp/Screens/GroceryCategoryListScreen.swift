@@ -9,7 +9,11 @@ import SwiftUI
 
 struct GroceryCategoryListScreen: View {
     
+    
+    
     @EnvironmentObject private var model: GroceryModel
+    
+    @State private var isPresented: Bool = false
     
     private func fetchGroceryCategories() async {
         do {
@@ -35,22 +39,49 @@ struct GroceryCategoryListScreen: View {
     }
     
     var body: some View {
-        List {
-            ForEach(model.groceryCategories) { groceryCategory in
-                HStack {
-                    Circle()
-                        .fill(Color.fromHex(groceryCategory.colorCode))
-                        .frame(width: 25, height: 25)
-                    
-                    Text(groceryCategory.title)
+        ZStack {
+            if model.groceryCategories.isEmpty {
+                Text("No grocery categories found.")
+            } else {
+                List {
+                    ForEach(model.groceryCategories) { groceryCategory in
+                        HStack {
+                            Circle()
+                                .fill(Color.fromHex(groceryCategory.colorCode))
+                                .frame(width: 25, height: 25)
+                            
+                            Text(groceryCategory.title)
+                        }
+                    }
+                    .onDelete(perform: deleteGroceryCategory)
                 }
             }
-            .onDelete(perform: deleteGroceryCategory)
         }
         .task {
             await fetchGroceryCategories()
         }
         .navigationTitle("Categories")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Logout") {
+                    
+                }
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    isPresented = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+                
+            }
+        }
+        .sheet(isPresented: $isPresented) {
+            NavigationStack {
+                AddGroceryCategoryScreen()
+            }
+        }
     }
 }
 

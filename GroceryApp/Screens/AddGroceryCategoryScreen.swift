@@ -23,6 +23,7 @@ struct AddGroceryCategoryScreen: View {
         
         do {
             try await model.saveGroceryCategory(groceryCategoryRequestDTO)
+            dismiss()
         } catch {
             print(error.localizedDescription)
         }
