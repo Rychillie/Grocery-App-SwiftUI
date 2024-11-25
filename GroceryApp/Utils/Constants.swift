@@ -20,5 +20,9 @@ struct Constants {
             return URL(string: "\(baseUrlPath)/users/\(userId)/grocery-categories")!
         }
         
+        static func groceryCategoriesBy(userId: UUID) -> URL {
+            return URL(string: "\(baseUrlPath)/users/\(userId)/grocery-categories")!
+        }
+        
     }
 }

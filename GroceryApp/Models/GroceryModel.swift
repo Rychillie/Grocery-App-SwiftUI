@@ -10,6 +10,8 @@ import GroceryAppSharedDTO
 
 class GroceryModel: ObservableObject {
     
+    @Published var groceryCategories: [GroceryCategoryResponseDTO] = []
+    
     let httpClient = HTTPClient()
     
     func register(username: String, password: String) async throws -> RegisterResponseDTO {
@@ -46,6 +48,21 @@ class GroceryModel: ObservableObject {
         return loginResponseDTO
     }
     
+    func populateGroceryCategories() async throws {
+        
+        guard let userId = UserDefaults.standard.userId else {
+            return
+        }
+        
+        let resource = Resource(
+            url: Constants.Urls.groceryCategoriesBy(userId: userId),
+            modelType: [GroceryCategoryResponseDTO].self
+        )
+        
+        groceryCategories = try await httpClient.load(resource)
+        
+    }
+    
     func saveGroceryCategory(_ groceryCategoryRequestDTO: GroceryCategoryRequestDTO) async throws {
         
         guard let userId = UserDefaults.standard.userId else {
@@ -58,7 +75,9 @@ class GroceryModel: ObservableObject {
             modelType: GroceryCategoryResponseDTO.self
         )
         
-        let newGroceryCategory = try await httpClient.load(resource)
+        let groceryCategory = try await httpClient.load(resource)
+        
+        groceryCategories.append(groceryCategory)
         
     }
     
