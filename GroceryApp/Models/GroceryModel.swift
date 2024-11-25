@@ -15,7 +15,11 @@ class GroceryModel: ObservableObject {
     func register(username: String, password: String) async throws -> RegisterResponseDTO {
         
         let registerData = ["username": username, "password": password]
-        let resource = try Resource(url: Constants.Urls.register, method: .post(JSONEncoder().encode(registerData)), modelType: RegisterResponseDTO.self)
+        let resource = try Resource(
+            url: Constants.Urls.register,
+            method: .post(JSONEncoder().encode(registerData)),
+            modelType: RegisterResponseDTO.self
+        )
         let registerResponseDTO = try await httpClient.load(resource)
         return registerResponseDTO
     }
@@ -24,8 +28,11 @@ class GroceryModel: ObservableObject {
         
         let loginPostData = ["username": username, "password": password]
         
-        // resource
-        let resource = try Resource(url: Constants.Urls.login, method: .post(JSONEncoder().encode(loginPostData)), modelType: LoginResponseDTO.self)
+        let resource = try Resource(
+            url: Constants.Urls.login,
+            method: .post(JSONEncoder().encode(loginPostData)),
+            modelType: LoginResponseDTO.self
+        )
         
         let loginResponseDTO = try await httpClient.load(resource)
         
@@ -37,6 +44,25 @@ class GroceryModel: ObservableObject {
         }
         
         return loginResponseDTO
+    }
+    
+    func saveGroceryCategory(_ groceryCategoryRequestDTO: GroceryCategoryRequestDTO) async throws {
+        
+        let defaults = UserDefaults.standard
+        guard let userIdString = defaults.string(forKey: "userId"),
+              let userId = UUID(uuidString: userIdString)
+        else {
+            return
+        }
+        
+        let resource = try Resource(
+            url: Constants.Urls.saveGroceryCategoryByUserID(userId: userId),
+            method: .post(JSONEncoder().encode(groceryCategoryRequestDTO)),
+            modelType: GroceryCategoryResponseDTO.self
+        )
+        
+        let newGroceryCategory = try await httpClient.load(resource)
+        
     }
     
 }
