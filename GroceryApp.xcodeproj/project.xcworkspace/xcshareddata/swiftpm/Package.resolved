@@ -1,0 +1,15 @@
+{
+  "originHash" : "5fd81b8287f13320a08ff1c3cb1ac3abb9ed781411929701bb8d8004e8035028",
+  "pins" : [
+    {
+      "identity" : "groceryappshareddto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Rychillie/GroceryAppSharedDTO.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c4f2a7b2baa89c859995dae9b9b56f314ef8427d"
+      }
+    }
+  ],
+  "version" : 3
+}

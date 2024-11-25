@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		893A30B32CF3FD770027874D /* GroceryAppSharedDTO in Frameworks */ = {isa = PBXBuildFile; productRef = 893A30B22CF3FD770027874D /* GroceryAppSharedDTO */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		89BFED7D2CF23A3E000F16D2 /* GroceryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroceryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				893A30B32CF3FD770027874D /* GroceryAppSharedDTO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = GroceryApp;
 			packageProductDependencies = (
+				893A30B22CF3FD770027874D /* GroceryAppSharedDTO */,
 			);
 			productName = GroceryApp;
 			productReference = 89BFED7D2CF23A3E000F16D2 /* GroceryApp.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 89BFED742CF23A3E000F16D2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				893A30B12CF3FD770027874D /* XCRemoteSwiftPackageReference "GroceryAppSharedDTO" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 89BFED7E2CF23A3E000F16D2 /* Products */;
 			projectDirPath = "";
@@ -324,6 +333,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		893A30B12CF3FD770027874D /* XCRemoteSwiftPackageReference "GroceryAppSharedDTO" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Rychillie/GroceryAppSharedDTO.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		893A30B22CF3FD770027874D /* GroceryAppSharedDTO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 893A30B12CF3FD770027874D /* XCRemoteSwiftPackageReference "GroceryAppSharedDTO" */;
+			productName = GroceryAppSharedDTO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 89BFED752CF23A3E000F16D2 /* Project object */;
 }
