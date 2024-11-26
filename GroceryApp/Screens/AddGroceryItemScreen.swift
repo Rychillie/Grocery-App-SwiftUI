@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GroceryAppSharedDTO
 
 struct AddGroceryItemScreen: View {
     
@@ -14,6 +15,7 @@ struct AddGroceryItemScreen: View {
     @State private var quantity: Int? = nil
     
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var model: GroceryModel
     
     private var isFormValid: Bool {
         guard let price = price,
@@ -25,6 +27,23 @@ struct AddGroceryItemScreen: View {
     }
     
     private func saveGroceryItem() async {
+        
+        guard let groceryCategory = model.groceryCategory,
+              let price = price,
+              let quantity = quantity
+        else { return }
+        
+        let groceryItemRequestDTO = GroceryItemRequestDTO(
+            title: title,
+            price: price,
+            quantity: quantity
+        )
+        
+        do {
+            try await model.saveGroceryItem(groceryItemRequestDTO, groceryCategoryId: groceryCategory.id)
+        } catch {
+            print(error.localizedDescription)
+        }
         
     }
     
@@ -61,5 +80,6 @@ struct AddGroceryItemScreen: View {
 #Preview {
     NavigationStack {
         AddGroceryItemScreen()
+            .environmentObject(GroceryModel())
     }
 }
