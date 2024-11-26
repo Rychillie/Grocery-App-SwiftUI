@@ -63,10 +63,32 @@ struct RegistrationScreen: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        RegistrationScreen()
-            .environmentObject(GroceryModel())
-            .environmentObject(AppState())
+struct RegistrationScreenContainer: View {
+    
+    @StateObject private var model = GroceryModel()
+    @StateObject private var appState = AppState()
+    
+    var body: some View {
+        NavigationStack(path: $appState.routes) {
+            RegistrationScreen()
+                .navigationDestination(for: Route.self) { route in
+                    switch route {
+                        case .register:
+                            RegistrationScreen()
+                        case .login:
+                            LoginScreen()
+                        case .groceryCategoryList:
+                            GroceryCategoryListScreen()
+                        case .groceryCategoryDetail(let groceryCategory):
+                            GroceryDetailScreen(groceryCategory: groceryCategory)
+                    }
+                }
+        }
+        .environmentObject(model)
+        .environmentObject(appState)
     }
+}
+
+#Preview {
+    RegistrationScreenContainer()
 }
