@@ -29,7 +29,9 @@ struct GroceryDetailScreen: View {
             }
         }
         .sheet(isPresented: $isPresented) {
-//            AddGroceryCategoryItemScreen(grocery)
+            NavigationStack {
+                AddGroceryItemScreen()
+            }
         }
         .onAppear {
             model.groceryCategory = groceryCategory

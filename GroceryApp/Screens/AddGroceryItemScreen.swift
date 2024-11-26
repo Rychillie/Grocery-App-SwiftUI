@@ -41,6 +41,7 @@ struct AddGroceryItemScreen: View {
         
         do {
             try await model.saveGroceryItem(groceryItemRequestDTO, groceryCategoryId: groceryCategory.id)
+            dismiss()
         } catch {
             print(error.localizedDescription)
         }
