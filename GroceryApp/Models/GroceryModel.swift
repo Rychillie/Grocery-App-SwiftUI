@@ -12,6 +12,7 @@ import GroceryAppSharedDTO
 class GroceryModel: ObservableObject {
     
     @Published var groceryCategories: [GroceryCategoryResponseDTO] = []
+    @Published var groceryCategory: GroceryCategoryResponseDTO?
     
     let httpClient = HTTPClient()
     
