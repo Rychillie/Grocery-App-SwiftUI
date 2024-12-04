@@ -70,6 +70,22 @@ class GroceryModel: ObservableObject {
         
     }
     
+    func populateGroceryItemsBy(groceryCategoryId: UUID) async throws {
+        
+        guard let userId = UserDefaults.standard.userId else {
+            return
+        }
+        
+        let resource = Resource(
+            url: Constants.Urls.groceryItemsBy(userId: userId, groceryCategoryId: groceryCategoryId),
+            modelType: [GroceryItemResponseDTO].self
+        )
+        
+        groceryItems = try await httpClient.load(resource)
+        
+    }
+
+    
     func populateGroceryCategories() async throws {
         
         guard let userId = UserDefaults.standard.userId else {

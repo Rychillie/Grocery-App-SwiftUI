@@ -14,10 +14,20 @@ struct GroceryDetailScreen: View {
     @State private var isPresented: Bool = false
     @EnvironmentObject private var model: GroceryModel
     
+    private func populateGroceryItems() async {
+        do {
+            try await model.populateGroceryItemsBy(groceryCategoryId: groceryCategory.id)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     var body: some View {
         VStack {
-            List(1...10, id: \.self) { index in
-                Text("Grocery Items: \(index)")
+            if model.groceryItems.isEmpty {
+                Text("No items found...")
+            } else {
+                GroceryItemList(groceryItems: model.groceryItems)
             }
         }
         .navigationTitle(groceryCategory.title)
@@ -35,6 +45,9 @@ struct GroceryDetailScreen: View {
         }
         .onAppear {
             model.groceryCategory = groceryCategory
+        }
+        .task {
+            await populateGroceryItems()
         }
     }
 }
