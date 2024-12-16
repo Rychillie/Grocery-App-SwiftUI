@@ -22,12 +22,28 @@ struct GroceryDetailScreen: View {
         }
     }
     
+    private func deleteGroceryItem(groceryItemId: UUID) {
+        Task {
+            do {
+                try await model.deleteGroceryItem(
+                    groceryCategoryId: groceryCategory.id,
+                    groceryItemId: groceryItemId
+                )
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
             if model.groceryItems.isEmpty {
                 Text("No items found...")
             } else {
-                GroceryItemList(groceryItems: model.groceryItems)
+                GroceryItemList(
+                    groceryItems: model.groceryItems,
+                    onDelete: deleteGroceryItem
+                )
             }
         }
         .navigationTitle(groceryCategory.title)
@@ -56,7 +72,7 @@ struct GroceryDetailScreen: View {
     NavigationStack {
         GroceryDetailScreen(
             groceryCategory: GroceryCategoryResponseDTO(
-                id: UUID(uuidString: "134f4a6d-59ce-4a7c-bcb7-87dd4bc97fda")!,
+                id: UUID(uuidString: "134F4A6D-59CE-4A7C-BCB7-87DD4BC97FDA")!,
                 title: "Seafood",
                 colorCode: "#3498db"
             )
