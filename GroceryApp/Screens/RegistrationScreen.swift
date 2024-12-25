@@ -60,6 +60,7 @@ struct RegistrationScreen: View {
             
         }
         .navigationTitle("Registration")
+        .navigationBarBackButtonHidden(true)
     }
 }
 

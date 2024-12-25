@@ -55,7 +55,9 @@ struct LoginScreen: View {
             }
             
             Text(errorMessage)
-        }.navigationTitle("Login")
+        }
+        .navigationTitle("Login")
+        .navigationBarBackButtonHidden(true)
     }
 }
 
